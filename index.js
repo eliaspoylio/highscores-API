@@ -24,3 +24,12 @@ db.on("error", (err)=>{console.error(err)})
 db.once("open", () => {console.log("Connected to DB")})
 
 app.listen(2400, () => {console.log("Server listening to port 2400")})
+
+
+
+process.on('SIGINT', function(){
+    mongoose.connection.close(function(){
+      console.log("Db disconnected with Node termination");
+       process.exit(0);
+      })
+})
