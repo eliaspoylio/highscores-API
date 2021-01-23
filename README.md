@@ -2,6 +2,29 @@
 
 API for adding highscores to MongoDB with user authentication.
 
+```
+----------                  ----------                  ----------
+| Client | -- GET login --> | Server |                  |   DB   |
+|        |                  |        |                  |        |
+|        | <- res token --  |        |                  |        |
+|        |                  |        |                  |        |
+|        | -- POST score -> |        | -- add to db ->  |        |
+|        |    ( token )     |        |                  |        |
+|        |                  |        |                  |        |
+|        | <- res "OK!"  -- |        |                  |        |
+|        |                  |        |                  |        |
+----------                  ----------                  ----------
+```
+
+
+## Dependencies
+
+- bcrypt
+- express
+- jsonwebtoken
+- mongodb
+- mongoose
+
 ## MongoDB PowerShell cheatsheet
 
 Start the database
@@ -20,5 +43,5 @@ db.scores.find()
 ```
 
 ## TODO
-- closing db connection
+
 - separating databases
