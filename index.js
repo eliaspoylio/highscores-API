@@ -14,12 +14,12 @@ app.use('/api/score', scoreRoute)
 
 mongoose.connect(dbURL , {useNewUrlParser: true, useUnifiedTopology: true})
 const db = mongoose.connection
-/*
-//default html page
+
+//default
 app.get('*', (req, res) => {
-    res.send('Default');
+    res.status(200).json({ status: "Server up" })
 });
-*/
+
 db.on("error", (err)=>{console.error(err)})
 db.once("open", () => {console.log("Connected to DB")})
 
