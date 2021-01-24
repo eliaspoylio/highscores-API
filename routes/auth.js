@@ -11,7 +11,7 @@ const tokenSecret = config.secret.tokensecret
 
 const middleware = require('../middleware')
 
-router.get('/login', (req, res) => {
+router.post('/login', (req, res) => {
     User.findOne({email: req.body.email})
     .then(user => {
         if(!user) res.status(404).json({error: 'User not found'})
