@@ -22,9 +22,7 @@ Login
     ...                 Content-Type=${CONTENT_TYPE}
     ...                 User-Agent=RobotFramework
     Create Session  login    ${SERVER}
-    #&{data}=        Create dictionary   "email":"${EMAIL}"  "password":"${PASSWORD}"
     ${response}=    POST On Session     login   /api/auth/login     data={"email":"${EMAIL}","password":"${PASSWORD}"}      headers=${HEADERS}
-    #${response}=    GET On Session    login     /api/auth/login    json=${data}
     Should Be Equal As Strings      ${response.status_code}     200
     Element should exist        ${response.json()}     .token
     ${token}=       Get From Dictionary     ${response.json()}      token
