@@ -15,7 +15,6 @@ ${CONTENT_TYPE}     application/json
 Server Up
 	Create Session    session    ${SERVER}
 	${response}=    GET On Session      session     /
-    #Log To Console      ${response.content}
 	Should be equal as strings    ${response.status_code}    200
 
 #Create HTTP session and send POST request with login data to API login-endpoint
@@ -31,3 +30,17 @@ Login
     Element should exist        ${response.json()}     .token
     ${token}=       Get From Dictionary     ${response.json()}      token
     Set Suite Variable      ${token}        ${token}
+
+
+#Create HTTP session and send POST request with token as Bearer in the Authorization header
+New Score
+    ${HEADERS}=         Create Dictionary
+    ...                 Content-Type=${CONTENT_TYPE}
+    ...                 User-Agent=RobotFramework
+    ...                 Authorization=Bearer ${token}   
+    Create Session  newScore    ${SERVER}
+    ${response}=    POST On Session     newScore   /api/score/score     data={"email":"${EMAIL}","score":"7357"}      headers=${HEADERS}
+    Should Be Equal As Strings      ${response.status_code}     200
+# TODO test get from the scores api
+
+# TODO test with false token
